@@ -24,10 +24,6 @@ This is the ECL bundle which has functions to perform Logistic Regression on HPC
 
     ecl bundle install https://github.com/hpcc-systems/SupportVectorMachines
 
-This is the ECL bundle that has functions to use Support Vector Machines for Regression and Classification on HPCC Systems
-
-    ecl bundle install https://github.com/hpcc-systems/LearningTrees
-
 This is the ECL bundle that has functions to use Decision Trees and Random forests for Regression and Classification on HPCC Systems
 
     ecl bundle install https://github.com/hpcc-systems/KMeans

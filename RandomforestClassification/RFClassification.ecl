@@ -1,33 +1,33 @@
 IMPORT ML_Core;
-IMPORT LogisticRegression;
+IMPORT LearningTrees;
 
-LogRegRecord := RECORD
+RFClassRecord := RECORD
     UNSIGNED Age;
     INTEGER EstimatedSalary;
     INTEGER purchased;
 END;
 
-LogRegDs := DATASET('~workshop::social_network_ads.csv',
-                 LogRegRecord,
+RFClassDs := DATASET('~workshop::social_network_ads.csv',
+                 RFClassRecord,
                  CSV(HEADING(1),
                      SEPARATOR(','),
                      TERMINATOR(['\n','\r\n','\n\r'])));
 
-OUTPUT(LogRegDs);
+OUTPUT(RFClassDs);
 
-recordCount := COUNT(LogRegDs);
-splitRatio := 0.8;
+recordCount := COUNT(RFClassDs);
+splitRatio := 0.95;
 
-Shuffler := RECORD(LogRegRecord)
+Shuffler := RECORD(RFClassRecord)
   UNSIGNED4 rnd; // A random number
 END;
 
-newDs := PROJECT(LogRegDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEFT));
+newDs := PROJECT(RFClassDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEFT));
 
 shuffledDs := SORT(newDs, rnd);
 
-TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], LogRegRecord);
-TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], LogRegRecord);
+TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RFClassRecord);
+TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RFClassRecord);
 
 OUTPUT(TrainDs);
 OUTPUT(TestDs);
@@ -52,8 +52,8 @@ y_test := ML_Core.Discretize.ByRounding(PROJECT(TestNF(number = 3), TRANSFORM(RE
 
 OUTPUT(y_test);
 
-classifier := LogisticRegression.BinomialLogisticRegression(max_iter := 15000).GetModel(X_train, y_train);
+classifier := LearningTrees.ClassificationForest().GetModel(X_train, y_train);
 
-predicted := LogisticRegression.BinomialLogisticRegression().Classify(classifier, X_test);
+predicted := LearningTrees.ClassificationForest().Classify(classifier, X_test);
 
 OUTPUT(predicted);

@@ -1,5 +1,6 @@
 IMPORT ML_Core;
 IMPORT LinearRegression;
+IMPORT Visualizer;
 
 LinRegRecord := RECORD
     REAL YearsExperience;
@@ -12,7 +13,10 @@ LinRegDs := DATASET('~workshop::salary_data.csv',
                      SEPARATOR(','),
                      TERMINATOR(['\n','\r\n','\n\r'])));
 
-OUTPUT(LinRegDs); 
+OUTPUT(LinRegDs, NAMED('InDs')); 
+
+recordCount := COUNT(LinRegDs);
+splitRatio := 0.8;
 
 Shuffler := RECORD(LinRegRecord)
   UNSIGNED4 rnd; // A random number
@@ -22,19 +26,14 @@ newDs := PROJECT(LinRegDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEF
 
 shuffledDs := SORT(newDs, rnd);
 
-TrainDs := PROJECT(shuffledDs[1..20], LinRegRecord);
-TestDs := PROJECT(shuffledDs[21..30], LinRegRecord);
+TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], LinRegRecord);
+TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], LinRegRecord);
 
 OUTPUT(TrainDs);
 OUTPUT(TestDs);
 
-ToNF := RECORD
-    UNSIGNED id;
-    LinRegRecord;
-END;
-
-newTrain := PROJECT(TrainDs, TRANSFORM(ToNF, SELF.id := COUNTER, SELF := LEFT));
-newTest := PROJECT(TestDs, TRANSFORM(ToNF, SELF.id := COUNTER, SELF := LEFT));
+ML_Core.AppendSeqID(TrainDs, id, newTrain);
+ML_Core.AppendSeqID(TestDs, id, newTest);
 
 OUTPUT(newTrain);
 OUTPUT(newTest);
@@ -58,3 +57,30 @@ regressor := LinearRegression.OLS(X_train, y_train).GetModel;
 predicted := LinearRegression.OLS().Predict(X_test, regressor);
 
 OUTPUT(predicted);
+
+Points := RECORD
+    REAL x;
+END;
+
+PointDs := DATASET(1200, TRANSFORM(Points, SELF.x := COUNTER/100));
+ML_Core.AppendSeqID(PointDs, id, newPoints)
+ML_Core.ToField(newPoints, PointNF);
+
+predicted_y := LinearRegression.OLS().Predict(PointNF, regressor);
+OUTPUT(predicted_y);
+
+ML_Core.FromField(predicted_y,{UNSIGNED id;Points}, y);
+OUTPUT(y);
+
+Line := RECORD(Points)
+    REAL y;
+END;
+
+LineDs := PROJECT(PointDs, TRANSFORM(Line, SELF.y := y[COUNTER].x, SELF:=LEFT));
+OUTPUT(LineDs, NAMED('LinearRegressionPlot'));
+
+viz_line := Visualizer.MultiD.Line('line',, 'LinearRegressionPlot');
+viz_line;
+
+viz_scatter := Visualizer.MultiD.Scatter('scatter',, 'InDs');
+viz_scatter;
