@@ -57,3 +57,11 @@ classifier := LogisticRegression.BinomialLogisticRegression(max_iter := 15000).G
 predicted := LogisticRegression.BinomialLogisticRegression().Classify(classifier, X_test);
 
 OUTPUT(predicted);
+
+cm := ML_Core.Analysis.Classification.ConfusionMatrix(predicted, y_test);
+
+OUTPUT(cm);
+
+accuracy_values := ML_Core.Analysis.CLassification.Accuracy(predicted, y_test);
+
+OUTPUT(accuracy_values);
