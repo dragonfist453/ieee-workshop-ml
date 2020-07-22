@@ -22,7 +22,7 @@ This is the ECL bundle which has functions to perform Linear Regression on HPCC 
 
 This is the ECL bundle which has functions to perform Logistic Regression on HPCC Systems    
 
-    ecl bundle install https://github.com/hpcc-systems/SupportVectorMachines
+    ecl bundle install https://github.com/hpcc-systems/LearningTrees
 
 This is the ECL bundle that has functions to use Decision Trees and Random forests for Regression and Classification on HPCC Systems
 
@@ -33,3 +33,7 @@ This is the ECL bundle that has functions to use KMeans clustering on a dataset 
     ecl bundle install https://github.com/hpcc-systems/DBSCAN
 
 This is the ECL bundle that contains functions to apply "Density Based Spatial Clustering with Added Noise" (DBSCAN) on a dataset using HPCC Systems   
+
+    ecl bundle install https://github.com/hpcc-systems/Visualizer
+
+This is an ECL bundle which helps to generate visualisations of outputs that are obtained to understand our results better on HPCC Systems.
