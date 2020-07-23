@@ -13,7 +13,7 @@ RFRegDs := DATASET('~workshop::salary_data.csv',
                      SEPARATOR(','),
                      TERMINATOR(['\n','\r\n','\n\r'])));
 */
-RFRegDs := $.Datasets.salaryDs.Ds;
+RFRegDs := $.Datasets.houseDs.Ds;
 
 OUTPUT(RFRegDs); 
 
@@ -46,11 +46,14 @@ ML_Core.ToField(newTest, TestNF);
 OUTPUT(TrainNF);
 OUTPUT(TestNF);
 
-X_train := TrainNF(number < 2);
-y_train := PROJECT(TrainNF(number = 2), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));
+independent_cols := 12;
+dependent_cols := 1;
 
-X_test := TestNF(number < 2);
-y_test := PROJECT(TestNF(number = 2), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));
+X_train := TrainNF(number < independent_cols + 1);
+y_train := PROJECT(TrainNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));
+
+X_test := TestNF(number < independent_cols + 1);
+y_test := PROJECT(TestNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));
 
 OUTPUT(y_test);
 
