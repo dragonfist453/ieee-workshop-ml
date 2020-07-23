@@ -2,6 +2,7 @@ IMPORT ML_Core;
 IMPORT LinearRegression;
 IMPORT Visualizer;
 
+/*
 LinRegRecord := RECORD
     REAL YearsExperience;
     INTEGER Salary;
@@ -12,13 +13,15 @@ LinRegDs := DATASET('~workshop::salary_data.csv',
                  CSV(HEADING(1),
                      SEPARATOR(','),
                      TERMINATOR(['\n','\r\n','\n\r'])));
+*/
+LinRegDs := $.Datasets.salaryDs.Ds;
 
 OUTPUT(LinRegDs, NAMED('InDs')); 
 
 recordCount := COUNT(LinRegDs);
 splitRatio := 0.8;
 
-Shuffler := RECORD(LinRegRecord)
+Shuffler := RECORD(RECORDOF(LinRegDs))
   UNSIGNED4 rnd; // A random number
 END;
 
@@ -26,8 +29,8 @@ newDs := PROJECT(LinRegDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEF
 
 shuffledDs := SORT(newDs, rnd);
 
-TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], LinRegRecord);
-TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], LinRegRecord);
+TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(LinRegDs));
+TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RECORDOF(LinRegDs));
 
 OUTPUT(TrainDs);
 OUTPUT(TestDs);
@@ -57,6 +60,9 @@ regressor := LinearRegression.OLS(X_train, y_train).GetModel;
 predicted := LinearRegression.OLS().Predict(X_test, regressor);
 
 OUTPUT(predicted);
+
+accuracy_values := ML_Core.Analysis.Regression.Accuracy(predicted, y_test);
+OUTPUT(accuracy_values);
 
 Points := RECORD
     REAL x;

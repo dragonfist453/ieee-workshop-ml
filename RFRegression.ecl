@@ -1,6 +1,7 @@
 IMPORT ML_Core;
 IMPORT LearningTrees;
 
+/*
 RFRegRecord := RECORD
     REAL YearsExperience;
     INTEGER Salary;
@@ -11,13 +12,15 @@ RFRegDs := DATASET('~workshop::salary_data.csv',
                  CSV(HEADING(1),
                      SEPARATOR(','),
                      TERMINATOR(['\n','\r\n','\n\r'])));
+*/
+RFRegDs := $.Datasets.salaryDs.Ds;
 
 OUTPUT(RFRegDs); 
 
 recordCount := COUNT(RFRegDs);
 splitRatio := 0.8;
 
-Shuffler := RECORD(RFRegRecord)
+Shuffler := RECORD(RECORDOF(RFRegDs))
   UNSIGNED4 rnd; // A random number
 END;
 
@@ -25,8 +28,8 @@ newDs := PROJECT(RFRegDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEFT
 
 shuffledDs := SORT(newDs, rnd);
 
-TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RFRegRecord);
-TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RFRegRecord);
+TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(RFRegDs));
+TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RECORDOF(RFRegDs));
 
 OUTPUT(TrainDs);
 OUTPUT(TestDs);
@@ -56,3 +59,6 @@ regressor := LearningTrees.RegressionForest().GetModel(X_train, y_train);
 predicted := LearningTrees.RegressionForest().Predict(regressor, X_test);
 
 OUTPUT(predicted);
+
+accuracy_values := ML_Core.Analysis.Regression.Accuracy(predicted, y_test);
+OUTPUT(accuracy_values);

@@ -1,6 +1,7 @@
 IMPORT ML_Core;
 IMPORT LogisticRegression;
 
+/*
 LogRegRecord := RECORD
     UNSIGNED Age;
     INTEGER EstimatedSalary;
@@ -12,13 +13,15 @@ LogRegDs := DATASET('~workshop::social_network_ads.csv',
                  CSV(HEADING(1),
                      SEPARATOR(','),
                      TERMINATOR(['\n','\r\n','\n\r'])));
+*/
+LogRegDs := $.Datasets.socialDs.Ds;
 
 OUTPUT(LogRegDs);
 
 recordCount := COUNT(LogRegDs);
 splitRatio := 0.8;
 
-Shuffler := RECORD(LogRegRecord)
+Shuffler := RECORD(RECORDOF(LogRegDs))
   UNSIGNED4 rnd; // A random number
 END;
 
@@ -26,8 +29,8 @@ newDs := PROJECT(LogRegDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEF
 
 shuffledDs := SORT(newDs, rnd);
 
-TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], LogRegRecord);
-TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], LogRegRecord);
+TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(LogRegDs));
+TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RECORDOF(LogRegDs));
 
 OUTPUT(TrainDs);
 OUTPUT(TestDs);

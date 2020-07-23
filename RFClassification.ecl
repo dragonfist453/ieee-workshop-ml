@@ -1,6 +1,7 @@
 IMPORT ML_Core;
 IMPORT LearningTrees;
 
+/*
 RFClassRecord := RECORD
     UNSIGNED Age;
     INTEGER EstimatedSalary;
@@ -12,13 +13,15 @@ RFClassDs := DATASET('~workshop::social_network_ads.csv',
                  CSV(HEADING(1),
                      SEPARATOR(','),
                      TERMINATOR(['\n','\r\n','\n\r'])));
+*/
+RFClassDs := $.Datasets.socialDs.Ds;
 
 OUTPUT(RFClassDs);
 
 recordCount := COUNT(RFClassDs);
 splitRatio := 0.95;
 
-Shuffler := RECORD(RFClassRecord)
+Shuffler := RECORD(RECORDOF(RFClassDs))
   UNSIGNED4 rnd; // A random number
 END;
 
@@ -26,8 +29,8 @@ newDs := PROJECT(RFClassDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LE
 
 shuffledDs := SORT(newDs, rnd);
 
-TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RFClassRecord);
-TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RFClassRecord);
+TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(RFClassDs));
+TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RECORDOF(RFClassDs));
 
 OUTPUT(TrainDs);
 OUTPUT(TestDs);
@@ -57,3 +60,11 @@ classifier := LearningTrees.ClassificationForest().GetModel(X_train, y_train);
 predicted := LearningTrees.ClassificationForest().Classify(classifier, X_test);
 
 OUTPUT(predicted);
+
+cm := ML_Core.Analysis.Classification.ConfusionMatrix(predicted, y_test);
+
+OUTPUT(cm);
+
+accuracy_values := ML_Core.Analysis.CLassification.Accuracy(predicted, y_test);
+
+OUTPUT(accuracy_values);
