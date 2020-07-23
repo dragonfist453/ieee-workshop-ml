@@ -1,20 +1,36 @@
-IMPORT ML_Core;
+﻿IMPORT ML_Core;
 IMPORT KMeans;
 IMPORT Visualizer;
 
+//Import raw data.
 KMDs := KMeans.Test.Datasets.DSIris.ds;
 
+//Hold the raw data in machine learning dataframes such as NumericField
+// Add id to each record
 ML_Core.AppendSeqID(KMDs, id, newKMDs);
+// Transform the records to NumericField dataframe
 ML_Core.ToField(newKMDs, KMNF);
 
+//Initialization
 Centroids := KMNF(id IN [1, 51, 101]);
 
-Pre_Model := KMeans.KMeans(30, 0.03);
+//Setup model parameters
+Max_iterations := 30;
+Tolerance := 0.00;
 
+//Train K-Means Model
+//Setup the model
+Pre_Model := KMeans.KMeans(Max_iterations, Tolerance);
+//Train the model
 Model := Pre_Model.Fit(KMNF(number < 5), Centroids(number < 5));
 
+//Coordinates of cluster centers
 Centers := KMeans.KMeans().Centers(Model);
-OUTPUT(Centers);
+OUTPUT(Centers, NAMED('Centers'));
 
 Labels := KMeans.KMeans().Predict(Model, KMNF);
-OUTPUT(Labels);
+OUTPUT(Labels, NAMED('Labels'));
+
+//Analysis
+SSS       := ML_Core.Analysis.Clustering.SilhouetteScore(KMNF,Labels);
+OUTPUT(sss,NAMED('Analysis'));
