@@ -1,19 +1,6 @@
 IMPORT ML_Core;
 IMPORT LogisticRegression;
 
-/*
-LogRegRecord := RECORD
-    UNSIGNED Age;
-    INTEGER EstimatedSalary;
-    INTEGER purchased;
-END;
-
-LogRegDs := DATASET('~workshop::social_network_ads.csv',
-                 LogRegRecord,
-                 CSV(HEADING(1),
-                     SEPARATOR(','),
-                     TERMINATOR(['\n','\r\n','\n\r'])));
-*/
 LogRegDs := $.Datasets.socialDs.Ds;
 
 OUTPUT(LogRegDs);

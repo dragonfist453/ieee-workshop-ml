@@ -1,18 +1,6 @@
 IMPORT ML_Core;
 IMPORT LearningTrees;
 
-/*
-RFRegRecord := RECORD
-    REAL YearsExperience;
-    INTEGER Salary;
-END;
-
-RFRegDs := DATASET('~workshop::salary_data.csv',
-                 RFRegRecord,
-                 CSV(HEADING(1),
-                     SEPARATOR(','),
-                     TERMINATOR(['\n','\r\n','\n\r'])));
-*/
 RFRegDs := $.Datasets.houseDs.Ds;
 
 OUTPUT(RFRegDs); 

@@ -1,19 +1,6 @@
 IMPORT ML_Core;
 IMPORT LearningTrees;
 
-/*
-RFClassRecord := RECORD
-    UNSIGNED Age;
-    INTEGER EstimatedSalary;
-    INTEGER purchased;
-END;
-
-RFClassDs := DATASET('~workshop::social_network_ads.csv',
-                 RFClassRecord,
-                 CSV(HEADING(1),
-                     SEPARATOR(','),
-                     TERMINATOR(['\n','\r\n','\n\r'])));
-*/
 RFClassDs := $.Datasets.heartDs.Ds;
 
 OUTPUT(RFClassDs);
