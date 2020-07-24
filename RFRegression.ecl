@@ -47,7 +47,6 @@ OUTPUT(TrainNF);
 OUTPUT(TestNF);
 
 independent_cols := 12;
-dependent_cols := 1;
 
 X_train := TrainNF(number < independent_cols + 1);
 y_train := PROJECT(TrainNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));

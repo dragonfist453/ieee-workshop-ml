@@ -28,7 +28,7 @@ EXPORT Datasets := MODULE
                         TERMINATOR(['\n','\r\n','\n\r'])));
     END;
 
-    // Module to obtain dataset of placement_data.csv
+    // Module to obtain dataset of house_prices_data.csv
     EXPORT houseDs := MODULE
         dsrecord := RECORD
             UNSIGNED bedrooms;
@@ -51,5 +51,31 @@ EXPORT Datasets := MODULE
                     CSV(HEADING(1),
                         SEPARATOR(','),
                         TERMINATOR(['\n','\r\n','\n\r'])));
-    END;                          
+    END;       
+
+    // Module to obtain dataset of heart_failure.csv
+    EXPORT heartDs := MODULE
+        dsrecord := RECORD
+            UNSIGNED age;
+            UNSIGNED sex;
+            UNSIGNED cp;
+            UNSIGNED trestbps;
+            UNSIGNED chol;
+            UNSIGNED fbs;
+            UNSIGNED restecg;
+            UNSIGNED thalach;
+            UNSIGNED exang;
+            UNSIGNED oldpeak;
+            UNSIGNED slope;
+            UNSIGNED ca;
+            UNSIGNED thal;
+            UNSIGNED target;
+        END;
+        
+        EXPORT Ds := DATASET('~workshop::heart_failure.csv',
+                    dsrecord,
+                    CSV(HEADING(1),
+                        SEPARATOR(','),
+                        TERMINATOR(['\n','\r\n','\n\r'])));
+    END;             
 END;                        

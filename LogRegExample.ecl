@@ -47,11 +47,13 @@ ML_Core.ToField(newTest, TestNF);
 OUTPUT(TrainNF);
 OUTPUT(TestNF);
 
-X_train := TrainNF(number < 3);
-y_train := ML_Core.Discretize.ByRounding(PROJECT(TrainNF(number = 3), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT)));
+independent_cols := 2;
 
-X_test := TestNF(number < 3);
-y_test := ML_Core.Discretize.ByRounding(PROJECT(TestNF(number = 3), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT)));
+X_train := TrainNF(number < independent_cols + 1);
+y_train := ML_Core.Discretize.ByRounding(PROJECT(TrainNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT)));
+
+X_test := TestNF(number < independent_cols + 1);
+y_test := ML_Core.Discretize.ByRounding(PROJECT(TestNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT)));
 
 OUTPUT(y_test);
 
