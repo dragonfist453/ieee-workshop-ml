@@ -37,3 +37,7 @@ This is the ECL bundle that contains functions to apply "Density Based Spatial C
     ecl bundle install https://github.com/hpcc-systems/Visualizer
 
 This is an ECL bundle which helps to generate visualisations of outputs that are obtained to understand our results better on HPCC Systems.
+
+
+You may also use `install.sh`(Linux) or `install.bat`(Windows) to run these commands in sequence.
+It assumes HPCC Systems 7.10.6 is used and installed in the default directories.
