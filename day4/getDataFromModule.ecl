@@ -8,26 +8,35 @@ myDataSet := dataMod.ds1;
 
 
 
-// aggregates
+// common aggregates - count, sort, sum, min,max,avg
 
-//count
+// count
 OUTPUT(COUNT(mydataset) ,named('COUNT'));
 
 
-//sorts
+// sorts
 // ascending
 sortasc := SORT(mydataset,bedrooms);
-//descending
+// descending
 sortdesc:= SORT(mydataset,-bedrooms);
-
-
 
 
 OUTPUT(sortasc,NAMED('ascending'));
 OUTPUT(sortdesc,NAMED('descending'));
 
 
+//max no. of bedrooms
+maxBedrooms := MAX(mydataset,bedrooms);
+OUTPUT(maxBedrooms,NAMED('max'));
 
+
+//similarly, minimum area of 
+//minArea := <???>
+//OUTPUT(minArea,NAMED('min');
+
+//avg number of bedrooms
+avgBedrooms := ave(mydataset,bedrooms);
+OUTPUT(avgBedrooms,NAMED('avg'));
 
 
 
