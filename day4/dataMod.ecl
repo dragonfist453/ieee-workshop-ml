@@ -1,7 +1,4 @@
 ﻿// Store all the data required for out project
-
-
-
 export dataMod := MODULE
 	export dsrecord := RECORD
 		UNSIGNED bedrooms;

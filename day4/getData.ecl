@@ -1,4 +1,4 @@
-﻿import $.dataMod;
+﻿IMPORT $.dataMod;
 
 // visibility
 OUTPUT(dataMod.ds);
