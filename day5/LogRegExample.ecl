@@ -1,6 +1,6 @@
-IMPORT ML_Core;
+﻿IMPORT ML_Core;
 IMPORT LogisticRegression;
-IMPORT $.^ as root;
+IMPORT $ as root;
 
 LogRegDs := root.Datasets.socialDs.Ds;
 

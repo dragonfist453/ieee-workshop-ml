@@ -1,6 +1,6 @@
-IMPORT ML_Core;
+﻿IMPORT ML_Core;
 IMPORT LearningTrees;
-IMPORT $.^ as root;
+IMPORT $ as root;
 
 RFClassDs := root.Datasets.heartDs.Ds;
 

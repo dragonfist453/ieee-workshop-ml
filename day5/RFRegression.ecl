@@ -1,6 +1,6 @@
-IMPORT ML_Core;
+﻿IMPORT ML_Core;
 IMPORT LearningTrees;
-IMPORT $.^ as root;
+IMPORT $ as root;
 
 RFRegDs := root.Datasets.houseDs.Ds;
 
@@ -45,7 +45,7 @@ y_test := PROJECT(TestNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT
 
 OUTPUT(y_test, NAMED('ActualY'));
 
-regressor := LearningTrees.RegressionForest().GetModel(X_train, y_train);
+regressor := LearningTrees.RegressionForest(numTrees := 10).GetModel(X_train, y_train);
 
 predicted := LearningTrees.RegressionForest().Predict(regressor, X_test);
 

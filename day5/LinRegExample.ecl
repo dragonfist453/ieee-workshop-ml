@@ -1,7 +1,7 @@
 ﻿IMPORT ML_Core;
 IMPORT LinearRegression;
 IMPORT Visualizer;
-IMPORT $.^ as root;
+IMPORT $ as root;
 
 /*
 // Making a record structure for the input dataset
