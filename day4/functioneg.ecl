@@ -1,19 +1,6 @@
-﻿dsrecord := RECORD
-	UNSIGNED bedrooms;
-	REAL bathrooms;
-	REAL sqft_living;
-	REAL sqft_lot;
-	UNSIGNED floors;
-	UNSIGNED condition;
-	UNSIGNED grade;
-	REAL sqft_above;
-	REAL sqft_basement;
-	UNSIGNED yr_built;
-	REAL sqft_living15;
-	REAL sqft_lot15;
-	REAL price;
-END;
+﻿IMPORT $.^ as root;
 
+dsrecord := root.Datasets.houseDs.dsrecord;
 ds1 := DATASET('~workshop::house_prices_data.csv',dsrecord,CSV(HEADING(1)));	
 ds2 := DATASET([{1,2,3,4,5,6,7,8,9,10,11,12,13},{14,15,16,17,18,19,20,21,22,23,24,25,26}],dsrecord);
 

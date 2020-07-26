@@ -4,6 +4,7 @@ IMPORT Visualizer;
 
 //Import raw data.
 KMDs := KMeans.Test.Datasets.DSIris.ds;
+OUTPUT(KMds, NAMED('InputDataset'));
 
 //Hold the raw data in machine learning dataframes such as NumericField
 // Add id to each record
@@ -32,5 +33,5 @@ Labels := KMeans.KMeans().Predict(Model, KMNF);
 OUTPUT(Labels, NAMED('Labels'));
 
 //Analysis
-SSS       := ML_Core.Analysis.Clustering.SilhouetteScore(KMNF,Labels);
+SSS := ML_Core.Analysis.Clustering.SilhouetteScore(KMNF,Labels);
 OUTPUT(sss,NAMED('Analysis'));

@@ -1,7 +1,7 @@
 EXPORT Datasets := MODULE
     // Module to obtain dataset of salary_data.csv
     EXPORT salaryDs := MODULE
-        SHARED dsrecord := RECORD
+        EXPORT dsrecord := RECORD
             REAL YearsExperience;
             INTEGER Salary;
         END;
@@ -15,7 +15,7 @@ EXPORT Datasets := MODULE
 
     // Module to obtain dataset of social_network_ads.csv
     EXPORT socialDs := MODULE
-        dsrecord := RECORD
+        EXPORT dsrecord := RECORD
             UNSIGNED Age;
             INTEGER EstimatedSalary;
             INTEGER purchased;
@@ -30,7 +30,7 @@ EXPORT Datasets := MODULE
 
     // Module to obtain dataset of house_prices_data.csv
     EXPORT houseDs := MODULE
-        dsrecord := RECORD
+        EXPORT dsrecord := RECORD
             UNSIGNED bedrooms;
             REAL bathrooms;
             REAL sqft_living;
@@ -55,7 +55,7 @@ EXPORT Datasets := MODULE
 
     // Module to obtain dataset of heart_failure.csv
     EXPORT heartDs := MODULE
-        dsrecord := RECORD
+        EXPORT dsrecord := RECORD
             UNSIGNED age;
             UNSIGNED sex;
             UNSIGNED cp;
