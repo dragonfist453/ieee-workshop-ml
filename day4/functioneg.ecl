@@ -26,7 +26,7 @@ END;
 
 
 //call the function
-OUTPUT( somefunction(ds1,1)  ,NAMED());
-somefunction(ds1,2);
+OUTPUT( getroomwords(ds1,1)  ,NAMED('FunctionOut'));
+getroomwords(ds1,2);
 
-somefunction(ds2,14);
+getroomwords(ds2,14);

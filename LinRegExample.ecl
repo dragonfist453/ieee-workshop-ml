@@ -1,4 +1,4 @@
-IMPORT ML_Core;
+﻿IMPORT ML_Core;
 IMPORT LinearRegression;
 IMPORT Visualizer;
 
@@ -16,7 +16,7 @@ LinRegDs := DATASET('~workshop::salary_data.csv',
 */
 LinRegDs := $.Datasets.salaryDs.Ds;
 
-OUTPUT(LinRegDs, NAMED('InDs')); 
+OUTPUT(LinRegDs, NAMED('InputDataset')); 
 
 recordCount := COUNT(LinRegDs);
 splitRatio := 0.8;
@@ -32,20 +32,20 @@ shuffledDs := SORT(newDs, rnd);
 TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(LinRegDs));
 TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RECORDOF(LinRegDs));
 
-OUTPUT(TrainDs);
-OUTPUT(TestDs);
+OUTPUT(TrainDs, NAMED('TrainDataset'));
+OUTPUT(TestDs, NAMED('TestDataset'));
 
 ML_Core.AppendSeqID(TrainDs, id, newTrain);
 ML_Core.AppendSeqID(TestDs, id, newTest);
 
-OUTPUT(newTrain);
-OUTPUT(newTest);
+OUTPUT(newTrain, NAMED('NewTrainDataset'));
+OUTPUT(newTest, NAMED('NewTestDataset'));
 
 ML_Core.ToField(newTrain, TrainNF);
 ML_Core.ToField(newTest, TestNF);
 
-OUTPUT(TrainNF);
-OUTPUT(TestNF);
+OUTPUT(TrainNF, NAMED('TrainNumericField'));
+OUTPUT(TestNF, NAMED('TestNumericField'));
 
 independent_cols := 1;
 
@@ -55,16 +55,16 @@ y_train := PROJECT(TrainNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LE
 X_test := TestNF(number < independent_cols + 1);
 y_test := PROJECT(TestNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));
 
-OUTPUT(y_test);
+OUTPUT(y_test, NAMED('ActualY'));
 
 regressor := LinearRegression.OLS(X_train, y_train).GetModel;
 
 predicted := LinearRegression.OLS().Predict(X_test, regressor);
 
-OUTPUT(predicted);
+OUTPUT(predicted, NAMED('PredictedY'));
 
 accuracy_values := ML_Core.Analysis.Regression.Accuracy(predicted, y_test);
-OUTPUT(accuracy_values);
+OUTPUT(accuracy_values, NAMED('AccuracyValues'));
 
 Points := RECORD
     REAL x;
@@ -75,10 +75,10 @@ ML_Core.AppendSeqID(PointDs, id, newPoints)
 ML_Core.ToField(newPoints, PointNF);
 
 predicted_y := LinearRegression.OLS().Predict(PointNF, regressor);
-OUTPUT(predicted_y);
+OUTPUT(predicted_y, NAMED('PredictedYPointsNF'));
 
 ML_Core.FromField(predicted_y,{UNSIGNED id;Points}, y);
-OUTPUT(y);
+OUTPUT(y, NAMED('PredictedYPoints'));
 
 Line := RECORD(Points)
     REAL y;
