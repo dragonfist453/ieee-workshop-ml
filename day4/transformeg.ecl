@@ -3,6 +3,8 @@
 
 output(dataMod.ds1);
 mydataset := dataMod.ds1;
+
+//Get the record of a variable
 housingrecord:= RECORDOF(dataMod.ds1);
 
 OUTPUT(mydataset ,NAMED('oldPrices'));
