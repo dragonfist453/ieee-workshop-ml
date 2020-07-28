@@ -1,6 +1,6 @@
-﻿IMPORT $.^ as root;
+﻿IMPORT $.datamod;
 
-dsrecord := root.Datasets.houseDs.dsrecord;
+dsrecord := RECORDOF(datamod.ds1);
 ds1 := DATASET('~workshop::house_prices_data.csv',dsrecord,CSV(HEADING(1)));	
 ds2 := DATASET([{1,2,3,4,5,6,7,8,9,10,11,12,13},{14,15,16,17,18,19,20,21,22,23,24,25,26}],dsrecord);
 

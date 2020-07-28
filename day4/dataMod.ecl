@@ -15,7 +15,10 @@ export dataMod := MODULE
 		REAL sqft_lot15;
 		REAL price;
 	END;
+	// This is a dataset that can be imported from other modules/files
 	EXPORT ds1 := DATASET('~workshop::house_prices_data.csv',dsrecord,CSV(HEADING(1)));
+	
+	// This is a dataset that can't be imported from other modules/files
 	shared ds2 := DATASET([{1,2,3,4,5,6,7,8,9,10,11,12,13},{14,15,16,17,18,19,20,21,22,23,24,25,26}],dsrecord);
 	
 	
