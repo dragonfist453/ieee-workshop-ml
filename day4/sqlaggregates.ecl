@@ -41,4 +41,11 @@ avgBedrooms := ave(mydataset,bedrooms);
 OUTPUT(avgBedrooms,NAMED('avg'));
 
 
+// okay one final thing - random()
+// suppose we need some source of randomness to do something
+// we can try this
+// returns pseudo-random non-negative integer value between 0 and 2^32-1 = 4,294,967,295
+OUTPUT( RANDOM() , NAMED('someRandom') );
+
+
 
