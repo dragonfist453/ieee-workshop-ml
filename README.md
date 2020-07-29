@@ -38,6 +38,47 @@ This is the ECL bundle that contains functions to apply "Density Based Spatial C
 
 This is an ECL bundle which helps to generate visualisations of outputs that are obtained to understand our results better on HPCC Systems.
 
-
 You may also use `install.sh`(Linux) or `install.bat`(Windows) to run these commands in sequence.
 It assumes HPCC Systems 7.10.6 is used and installed in the default directories.
+
+## Workshop files
+
+```
+.
+├── .gitignore
+├── assignments
+│   └── day2
+│       ├── input_heartDs.ecl
+│       ├── input_houseDs.ecl
+│       ├── input_salaryDs.ecl
+│       ├── input_socialDs.ecl
+│       └── README.md
+├── data
+│   ├── heart_failure.csv
+│   ├── house_prices_data.csv
+│   ├── README.md
+│   ├── Salary_Data.csv
+│   └── Social_Network_Ads.csv
+├── day4
+│   ├── dataMod.ecl
+│   ├── datasetManips.ecl
+│   ├── functioneg.ecl
+│   ├── sqlaggregates.ecl
+│   └── transformeg.ecl
+├── day5
+│   ├── Datasets.ecl
+│   ├── DBSCANExample.ecl
+│   ├── KMClusteringExample.ecl
+│   ├── LinRegExample.ecl
+│   ├── LogRegExample.ecl
+│   ├── RFClassification.ecl
+│   └── RFRegression.ecl
+├── install.bat
+├── install.sh
+└── README.md
+```
+
++ data -> This folder contains all the datasets that we use for our operations in order to understand ECL and use it for machine learning
++ assignments -> The assignments prescribed following the lab sessions are added onto this folder with description
++ day4 -> The programs primarily used on day 4 to show how ECL language can be used to manipulate data is added in this folder
++ day5 -> The programs used on day 5 to implement various machine learning algorithms on HPCC Systems using ECL are added onto this folder
