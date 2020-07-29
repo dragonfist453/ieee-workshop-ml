@@ -47,12 +47,19 @@ It assumes HPCC Systems 7.10.6 is used and installed in the default directories.
 .
 ├── .gitignore
 ├── assignments
-│   └── day2
-│       ├── input_heartDs.ecl
-│       ├── input_houseDs.ecl
-│       ├── input_salaryDs.ecl
-│       ├── input_socialDs.ecl
-│       └── README.md
+│   ├── day2
+│   │   ├── input_heartDs.ecl
+│   │   ├── input_houseDs.ecl
+│   │   ├── input_salaryDs.ecl
+│   │   ├── input_socialDs.ecl
+│   │   └── README.md
+│   ├── day4
+│   │   ├── filterset.ecl
+│   │   ├── README.md
+│   │   └── shuffle.ecl
+│   └── persons
+│       ├── getCount.ecl
+│       └── persons.ecl
 ├── data
 │   ├── heart_failure.csv
 │   ├── house_prices_data.csv
@@ -71,6 +78,7 @@ It assumes HPCC Systems 7.10.6 is used and installed in the default directories.
 │   ├── KMClusteringExample.ecl
 │   ├── LinRegExample.ecl
 │   ├── LogRegExample.ecl
+│   ├── README.md
 │   ├── RFClassification.ecl
 │   └── RFRegression.ecl
 ├── install.bat
