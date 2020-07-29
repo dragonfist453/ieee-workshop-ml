@@ -1,4 +1,4 @@
-# Assignment for day 2
+# Assignment for day 4
 
 Given the datasets in the data folder of this repository. The assignment for day 2 is this:
 
@@ -7,5 +7,5 @@ Given the datasets in the data folder of this repository. The assignment for day
 
  Answers for the assignment are the ecl files in the following folder
 
- - [ ] filterset.ecl
- - [ ] shuffle.ecl
+ - [X] filterset.ecl
+ - [X] shuffle.ecl
