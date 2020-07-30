@@ -15,3 +15,5 @@ Contents covered for day 5 are as follows:
 These are in the individual files that are aptly named. 
 
 Datasets.ecl contains the Datasets module to input datasets with ease!
+
+![Supervised Learning Model](./SupervisedLearningModel.png)
