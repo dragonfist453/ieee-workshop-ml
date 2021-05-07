@@ -1,9 +1,9 @@
 :: Use this to install all the bundles in one go %
 
 :: If you have 32 bit this will work %
-cd C:\Program Files\HPCCSystems\7.10.6\clienttools\bin
+cd C:\Program Files\HPCCSystems\8.0.8\clienttools\bin
 :: This will fail, but we'll remain there
-cd "C:\Program Files (x86)\HPCCSystems\7.10.6\clienttools\bin"
+cd "C:\Program Files (x86)\HPCCSystems\8.0.8\clienttools\bin"
 
 
 ecl bundle install https://github.com/hpcc-systems/ML_Core
