@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Use this to install all the bundles in one go
 
 ecl bundle install https://github.com/hpcc-systems/ML_Core
