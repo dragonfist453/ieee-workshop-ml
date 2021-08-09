@@ -14,5 +14,6 @@ ecl bundle install https://github.com/hpcc-systems/LearningTrees
 ecl bundle install https://github.com/hpcc-systems/KMeans
 ecl bundle install https://github.com/hpcc-systems/DBSCAN
 ecl bundle install https://github.com/hpcc-systems/Visualizer
+ecl bundle install https://github.com/hpcc-systems/GLM.git
 
 PAUSE
